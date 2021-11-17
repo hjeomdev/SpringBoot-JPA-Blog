@@ -7,8 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.AllArgsConstructor;
@@ -21,23 +22,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-public class User {
+public class Reply {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id; // oracle -> 시퀀스, mysql -> auto_increment
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
+	private int id;
 	
-	@Column(nullable = false, length = 30)
-	private String username; // 아이디
+	@Column(nullable = false, length = 200)
+	private String content;
 	
-	@Column(nullable = false, length = 100)
-	private String password;
-
-	@Column(nullable = false, length = 50)
-	private String email;
+	@ManyToOne // Many: Reply, One: Board
+	@JoinColumn(name="boardId")
+	private Board board;
 	
-	@ColumnDefault("'user'")
-	private String role;
+	@ManyToOne
+	@JoinColumn(name="userId")
+	private User user;
 	
 	@CreationTimestamp
 	private Timestamp createDate;
