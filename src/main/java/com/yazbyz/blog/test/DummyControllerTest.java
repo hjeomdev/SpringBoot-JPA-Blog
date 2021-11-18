@@ -3,6 +3,8 @@ package com.yazbyz.blog.test;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +12,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yazbyz.blog.model.RoleType;
@@ -22,16 +26,30 @@ public class DummyControllerTest {
 	@Autowired // 의존성 주입 
 	private UserRepository userRepository;
 	
-	//http://localhost:8000/blog/dummy/user (요청)
+	//http://localhost:8000/blog/dummy/user/1 (요청)
+	// email, password 수정 
+	@PutMapping("/dummy/user/{id}")
+	public User updateUser(@PathVariable int id, @RequestBody User requestUser) { // json 데이터를 요청 -> Java Object (MessageConverter의 Jackson라이브러리가 변환해서 받아줘요.)
+		User user = userRepository.findById(id).orElseThrow(() -> {
+			return new IllegalArgumentException("수정에 실패하였습니다.");
+		});
+		user.setEmail(requestUser.getEmail());
+		user.setPassword(requestUser.getPassword());
+		
+		userRepository.save(user);
+		return null;
+	}
+		
+	//http://localhost:8000/blog/dummy/users (요청)
 	@GetMapping("/dummy/users")
-	public List<User >list() { 
+	public List<User> list() { 
 		return userRepository.findAll();
 	}
 	
 	// 한페이지 당 2건에 데이터를 리턴받아 볼 예정 
 	//http://localhost:8000/blog/dummy/user (요청)
 	@GetMapping("/dummy/user")
-	public List<User>pageList(@PageableDefault(size=2, sort="id, direction = Sort.Direction.DESC") Pageable pageable) { 
+	public List<User> pageList(@PageableDefault(size=2, sort="id, direction = Sort.Direction.DESC") Pageable pageable) { 
 		Page<User> pagingUsers = userRepository.findAll(pageable);
 		
 		List<User> users = pagingUsers.getContent();
