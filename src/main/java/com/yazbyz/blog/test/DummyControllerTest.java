@@ -28,6 +28,7 @@ public class DummyControllerTest {
 	
 	//http://localhost:8000/blog/dummy/user/1 (요청)
 	// email, password 수정 
+	@Transactional
 	@PutMapping("/dummy/user/{id}")
 	public User updateUser(@PathVariable int id, @RequestBody User requestUser) { // json 데이터를 요청 -> Java Object (MessageConverter의 Jackson라이브러리가 변환해서 받아줘요.)
 		User user = userRepository.findById(id).orElseThrow(() -> {
@@ -36,7 +37,7 @@ public class DummyControllerTest {
 		user.setEmail(requestUser.getEmail());
 		user.setPassword(requestUser.getPassword());
 		
-		userRepository.save(user);
+//		userRepository.save(user);
 		return null;
 	}
 		
