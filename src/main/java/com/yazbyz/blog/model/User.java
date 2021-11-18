@@ -4,12 +4,15 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
+//@DynamicInsert // insert 시에 null 인 필드 제외시켜
 public class User {
 	
 	@Id
@@ -36,9 +40,10 @@ public class User {
 	@Column(nullable = false, length = 50)
 	private String email;
 	
-	@ColumnDefault("'user'")
-	private String role;
+//	@ColumnDefault("'user'")
+	@Enumerated(EnumType.STRING)
+	private RoleType role; // Enum을 쓰는게 좋다. 
 	
-	@CreationTimestamp
+	@CreationTimestamp // save 할 때 자바에서 현재 시간을 넣어줌 
 	private Timestamp createDate;
 }
