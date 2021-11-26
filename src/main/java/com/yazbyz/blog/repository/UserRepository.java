@@ -11,8 +11,9 @@ import com.yazbyz.blog.model.User;
 //@Repository // 생략가능 
 public interface UserRepository extends JpaRepository<User, Integer>{
 	
-//	SELETE * FROM user WHERE username = ?1 AND password = ?2;
-	User findByUsernameAndPassword(String username, String password);
-//	@Query(value="SELETE * FROM user WHERE username = ?1 AND password = ?2;", nativeQuery=true)
-//	User login(String username, String password);
+
 }
+//전통적인 로그인 방식임... 사용안해! 
+//User findByUsernameAndPassword(String username, String password);
+//@Query(value="SELETE * FROM user WHERE username = ?1 AND password = ?2;", nativeQuery=true)
+//User login(String username, String password);

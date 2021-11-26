@@ -3,9 +3,9 @@ let index = {
 		$("#btn-save").on("click", () => { // this를 바인딩하기 위해서 화살표 함수를 사용하였다. 
 			this.save();
 		});
-		$("#btn-login").on("click", () => { // this를 바인딩하기 위해서 화살표 함수를 사용하였다. 
+		/*$("#btn-login").on("click", () => { // this를 바인딩하기 위해서 화살표 함수를 사용하였다. 
 			this.login();
-		});
+		});*/
 	},
 	
 	save: function() {
@@ -23,7 +23,7 @@ let index = {
 		$.ajax({
 			// 회원가입 수행 요청 
 			type: "POST",
-			url: "/api/user",
+			url: "/auth/joinProc",
 			data: JSON.stringify(data), // http body데이터 
 			contentType: "application/json; charset=utf-8", // body 데이터 타입(MIME)
 			dataType: "json" // 요청이 서버로해서 응답이 왔을 때 기본적으로 모든것이 문자열(생긴게 json이라면) => js오브젝트로 변경 
@@ -34,6 +34,8 @@ let index = {
 			alert(JSON.stringify(error));
 		});  
 	},
+	
+	/*
 	login: function() {
 		//alert("user의 save 함수 호출됨.");
 		let data = {
@@ -54,6 +56,6 @@ let index = {
 		}).fail(function(error){
 			alert(JSON.stringify(error));
 		});  
-	}
+	}*/
 }
 index.init();
