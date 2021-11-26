@@ -20,7 +20,7 @@ public class UserApiController {
 	private UserService userService;
 	
 	@Autowired
-	private HttpSession httpSession;
+	private HttpSession session;
 	
 	@PostMapping("/api/user")
 	public ResponseDto<Integer> save(@RequestBody User user) {
