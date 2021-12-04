@@ -8,7 +8,7 @@
 		<div class="card m-2">
 			<div class="card-body">
 				<h4 class="card-title">${board.title}</h4><!-- board.getTitle() 호출 -->
-				<a href="#" class="card-link">상세보기</a>
+				<a href="/board/${board.id}" class="card-link">상세보기</a>
 			</div>
 		</div>
 	</c:forEach>

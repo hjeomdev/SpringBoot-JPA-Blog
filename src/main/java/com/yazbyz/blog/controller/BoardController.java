@@ -8,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 //import com.yazbyz.blog.config.auth.PrincipalDetail;
 import com.yazbyz.blog.service.BoardService;
@@ -30,4 +31,11 @@ public class BoardController {
 	public String saveForm() {
 		return "board/saveForm";
 	}
+	
+	@GetMapping("/board/{id}")
+	public String findById(@PathVariable int id, Model model) {
+		model.addAttribute("board", boardService.글상세보기(id));
+		return "board/detail";
+	}
+	
 }

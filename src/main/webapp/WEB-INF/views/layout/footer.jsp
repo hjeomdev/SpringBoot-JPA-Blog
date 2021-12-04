@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
-<br />
+<br /><br />
+
 <div class="jumbotron text-center" style="margin-bottom: 0">
 	<p>Created by hj</p>
 	<p>010-2222-2222</p>
